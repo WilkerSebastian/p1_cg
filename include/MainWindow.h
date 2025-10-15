@@ -34,7 +34,9 @@
 #define __MainWindow_h
 
 #include "graphics/GLRenderWindow3.h"
+#include "Actor.h"
 
+#include <memory>
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -55,6 +57,8 @@ private:
   float _speed;
   bool _animate{true};
   bool _showGround{true};
+
+  std::vector<std::unique_ptr<Actor>> _actors;
 
   // Overridden method examples
   void initialize() override;

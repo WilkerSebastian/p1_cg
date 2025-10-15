@@ -31,7 +31,7 @@
 // Last revision: 07/11/2022
 
 #include "MainWindow.h"
-
+#include "CentralSphere.h"
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -50,49 +50,43 @@ MainWindow::MainWindow(int width, int height):
 void
 MainWindow::initialize()
 {
-  // Put your OpenGL initialization code here. Example:
   Base::initialize();
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(1.0f, 1.0f);
+
+  auto sphere = std::make_unique<CentralSphere>();
+
+  _actors.push_back(std::move(sphere));
+
+  for (auto& actor : _actors)
+    actor->start();
+  
 }
 
 void
 MainWindow::update()
 {
-  // Put your scene update code here. Example:
-  static float time{};
+  
+  for (auto& actor : _actors)
+    actor->update(deltaTime());
 
-  if (_animate)
-    _radius = 1 + cosf(_speed * (time += deltaTime()) * 0.5f);
 }
 
 void
 MainWindow::renderScene()
 {
-  // Put your scene rendering code here. Example:
+  
   using namespace cg;
 
   auto g3 = this->g3();
 
-  g3->setLineColor(_lineColor);
-  g3->drawArc({-4, 0, 0}, // center
-    _radius, // radius
-    {1, 0, 0}, // first point direction
-    {0, 0, 1}, // normal
-    180); // angle
-  g3->setPolygonMode(GLGraphics3::LINE);
-  g3->drawCircle({0, 0, 0}, // center
-    _radius, // radius
-    {0, 0, 1}); // normal
-  g3->setPolygonMode(GLGraphics3::FILL);
-  g3->setMeshColor(_meshColor);
-  g3->drawMesh(*g3->sphere(), // mesh
-    {4, 0, 0}, // position
-    mat3f::identity(), // rotation
-    vec3f{1, 2, 1} * _radius); // scale
+  for (auto& actor : _actors)
+    actor->render(*g3);
+
   if (_showGround)
     g3->drawXZPlane(8, 1);
+
 }
 
 bool

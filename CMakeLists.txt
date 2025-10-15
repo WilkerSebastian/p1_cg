@@ -5,14 +5,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ds/include 
-    ${CMAKE_CURRENT_SOURCE_DIR}/Ds/externals/include    
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/Ds/include 
+  ${CMAKE_CURRENT_SOURCE_DIR}/Ds/externals/include    
 )
 
 add_executable(p1_cg
-    src/Main.cpp
-    src/MainWindow.cpp
+  src/Main.cpp
+  src/MainWindow.cpp
 )
 
 find_package(OpenGL REQUIRED)
