@@ -1,8 +1,7 @@
 #pragma once
 
 #include "graphics/GLGraphics3.h"
-#include "math/Vector3.h"
-#include "math/Quaternion.h"
+#include "math/Matrix4x4.h"
 
 class Actor {
 
@@ -17,5 +16,15 @@ public:
     virtual void start() {}
     virtual void update(float deltaTime) {}
     virtual void render(cg::GLGraphics3& g3) {}
-    
+
+protected:
+
+    cg::mat4f transform;
+
+    void updateTransform() {
+
+        transform = transform.TRS(position, rotation, scale);
+
+    }
+
 };

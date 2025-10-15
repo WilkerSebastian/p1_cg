@@ -17,6 +17,8 @@ public:
     void update(float deltaTime) override {
         cg::quatf rotacaoNesteFrame = cg::quatf(speed * deltaTime, {0, 1, 0});
         rotation = rotacaoNesteFrame * rotation;
+
+        updateTransform();
     }
 
     void render(cg::GLGraphics3& g3) override {
@@ -24,10 +26,11 @@ public:
         g3.setMeshColor(color);
         const cg::TriangleMesh* sphereMesh = g3.sphere();
         
+        cg::mat3f normal = cg::normalMatrix((cg::mat3f)rotation, scale);
+
         g3.drawMesh(*sphereMesh,
-            position,
-            (cg::mat3f)rotation, 
-            scale
+            transform,
+            normal
         );
 
     }
