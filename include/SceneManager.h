@@ -25,6 +25,24 @@ public:
 
     }
 
+    void addLight(const std::string& name, cg::vec3f position, cg::Color) {
+
+        auto it = scenes.find(name);
+
+        if (it != scenes.end()) {
+
+            cg::Light light;
+
+            light.setPosition(position);
+            light.color = cg::Color::white;
+
+            it->second.get()->addLight(light);
+
+        }
+
+
+    }
+
     void setActiveScene(const std::string& name) {
 
         auto it = scenes.find(name);

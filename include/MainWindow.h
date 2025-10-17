@@ -34,9 +34,12 @@
 #define __MainWindow_h
 
 #include "graphics/GLRenderWindow3.h"
-#include "Actor.h"
-
 #include "SceneManager.h"
+#include "graphics/Camera.h"
+#include "graphics/Color.h"
+#include "graphics/GLImage.h"
+#include "Intersection.h"
+#include "RayCaster.h"
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -50,15 +53,8 @@ public:
 private:
   using Base = cg::GLRenderWindow3;
 
-  // Attribute examples
-  cg::Color _lineColor;
-  cg::Color _meshColor;
-  float _radius;
-  float _speed;
-  bool _animate{true};
-  bool _showGround{true};
-
   SceneManager sceneManager;
+  std::unique_ptr<Raycaster> raycaster;
 
   // Overridden method examples
   void initialize() override;

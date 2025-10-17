@@ -3,6 +3,8 @@
 #include "graphics/GLGraphics3.h"
 #include "math/Matrix4x4.h"
 #include "Shape3.h"
+#include "graphics/Material.h"
+#include "geometry/Ray.h"
 
 #include <memory>
 
@@ -20,6 +22,14 @@ public:
     virtual void update(float deltaTime) {}
     virtual void render(cg::GLGraphics3& g3) {}
 
+    cg::Material material{cg::Color::white};
+
+    virtual Intersection intersect(cg::Ray3f& ray) {
+        
+        return {};
+
+    }
+
 protected:
 
     std::unique_ptr<Shape3> shape;
@@ -28,7 +38,7 @@ protected:
 
     void updateTransform() {
 
-        transform = transform.TRS(position, rotation, scale);
+        transform = cg::mat4f::TRS(position, rotation, scale);
 
     }
 

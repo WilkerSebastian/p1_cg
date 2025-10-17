@@ -13,6 +13,7 @@ include_directories(
 add_executable(p1_cg
   src/Main.cpp
   src/MainWindow.cpp
+  src/RayCaster.cpp
 )
 
 find_package(OpenGL REQUIRED)

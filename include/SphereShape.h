@@ -23,7 +23,7 @@ public:
 
         // calculo da intersecao
 
-        auto L = -localRay.origin;
+        auto L = localRay.origin;
         auto a = localRay.direction.dot(localRay.direction);
         auto b = 2 * localRay.direction.dot(L);
         auto c = L.dot(L) - 1.0f;

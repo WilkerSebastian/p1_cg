@@ -38,19 +38,18 @@
 // MainWindow implementation
 // ==========
 MainWindow::MainWindow(int width, int height):
-  Base{"Ds template", width, height}
+  Base{"P1 Wilker e José", width, height}
 {
-  // Put your code here. Example:
-  _lineColor = cg::Color::red;
-  _meshColor = cg::Color::blue;
-  _radius = 1;
-  _speed = 0.01f;
+
 }
 
 void
 MainWindow::initialize()
 {
   Base::initialize();
+
+  raycaster = std::make_unique<Raycaster>(width(), height());
+
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(1.0f, 1.0f);
@@ -59,8 +58,13 @@ MainWindow::initialize()
     new CentralSphere()
   );
 
+  sceneManager.addLight("main", { 5, 5, 5}, cg::Color::red);
+
   sceneManager.setActiveScene("main");
-  
+
+  if (auto* scene = sceneManager.getActiveScene()) 
+    raycaster->render(*scene);
+
 }
 
 void
@@ -78,43 +82,19 @@ MainWindow::renderScene()
   using namespace cg;
 
   auto g3 = this->g3();
-
-  sceneManager.render(*g3);
-
-  if (_showGround)
-    g3->drawXZPlane(8, 1);
-
+    
+  if (raycaster && raycaster->getImage())
+    raycaster->getImage()->draw(0, 0);
+    
 }
 
 bool
 MainWindow::keyInputEvent(int key, int action, int mods)
 {
-  // Put your key event handler code here. Example:
-  if (action != GLFW_RELEASE && mods == GLFW_MOD_ALT)
-    switch (key)
-    {
-      case GLFW_KEY_P:
-        _animate ^= true;
-        return true;
-    }
   return Base::keyInputEvent(key, action, mods);
 }
 
 void
 MainWindow::gui()
 {
-  // Put your gui code here. Example:
-  ImGui::SetNextWindowSize({360, 180});
-  ImGui::Begin("Template GUI");
-  ImGui::ColorEdit3("Line Color", (float*)&_lineColor);
-  ImGui::ColorEdit3("Mesh Color", (float*)&_meshColor);
-  ImGui::Separator();
-  ImGui::Checkbox("Animate", &_animate);
-  ImGui::SliderFloat("Speed", &_speed, 0.001f, 0.01f);
-  ImGui::Checkbox("Show Ground", &_showGround);
-  ImGui::Separator();
-  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
-    deltaTime(),
-    ImGui::GetIO().Framerate);
-  ImGui::End();
 }

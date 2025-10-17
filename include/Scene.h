@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Actor.h"
+#include "graphics/Light.h"
+#include "graphics/Color.h"
 #include <string>
 #include <vector>
 #include <memory>
@@ -10,6 +12,8 @@ class Scene {
 public:
 
     std::string name;
+    std::vector<cg::Light> lights;
+    cg::Color ambientLight{ cg::Color::darkGray }; 
 
 private:
 
@@ -54,6 +58,29 @@ public:
         for (auto& actor : actors) 
             actor->render(g3);
         
+    }
+
+    void addLight(cg::Light light) {
+
+        lights.push_back(light);
+
+    }
+
+    Intersection intersect(cg::Ray3f& ray) {
+
+        Intersection closestHit;
+
+        for (auto& actor : actors) {
+
+            Intersection hit = actor->intersect(ray);
+
+            if (hit && (!closestHit || hit.distance < closestHit.distance)) 
+                closestHit = hit;
+            
+        }
+
+        return closestHit;
+
     }
 
 };

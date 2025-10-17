@@ -14,7 +14,11 @@ public:
 
         shape = std::make_unique<SphereShape>();
 
-        position.set({0, 1, 0});
+        position.set(-7.5f, 0, 3);
+
+        material.diffuse = cg::Color::red;
+        material.specular = cg::Color::white;
+        material.shine = 32.0f;
         
         updateTransform();
         
@@ -31,6 +35,22 @@ public:
             transform,
             normal
         );
+
+    }
+
+    Intersection intersect(cg::Ray3f& ray) override {
+        
+        if (!shape)
+            return {}; 
+
+        auto hit = shape->intersect(ray, transform);
+
+        if (hit.distance > 0) {
+            hit.actor = this; 
+            return hit;       
+        }
+
+        return {};
 
     }
 
