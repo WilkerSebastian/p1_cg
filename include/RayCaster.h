@@ -12,7 +12,7 @@ class Raycaster {
 public:
 
     cg::Camera camera;
-    cg::Color backgroundColor{ cg::Color::white };
+    cg::Color backgroundColor{ cg::Color::royalBlue };
 
     Raycaster(int width, int height);
 
