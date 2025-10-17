@@ -55,12 +55,11 @@ MainWindow::initialize()
   glEnable(GL_POLYGON_OFFSET_FILL);
   glPolygonOffset(1.0f, 1.0f);
 
-  auto sphere = std::make_unique<CentralSphere>();
+  sceneManager.createScene("main",
+    new CentralSphere()
+  );
 
-  _actors.push_back(std::move(sphere));
-
-  for (auto& actor : _actors)
-    actor->start();
+  sceneManager.setActiveScene("main");
   
 }
 
@@ -68,8 +67,7 @@ void
 MainWindow::update()
 {
   
-  for (auto& actor : _actors)
-    actor->update(deltaTime());
+  sceneManager.update(deltaTime());
 
 }
 
@@ -81,8 +79,7 @@ MainWindow::renderScene()
 
   auto g3 = this->g3();
 
-  for (auto& actor : _actors)
-    actor->render(*g3);
+  sceneManager.render(*g3);
 
   if (_showGround)
     g3->drawXZPlane(8, 1);

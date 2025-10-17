@@ -36,7 +36,7 @@
 #include "graphics/GLRenderWindow3.h"
 #include "Actor.h"
 
-#include <memory>
+#include "SceneManager.h"
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -58,7 +58,7 @@ private:
   bool _animate{true};
   bool _showGround{true};
 
-  std::vector<std::unique_ptr<Actor>> _actors;
+  SceneManager sceneManager;
 
   // Overridden method examples
   void initialize() override;
