@@ -2,6 +2,9 @@
 
 #include "graphics/GLGraphics3.h"
 #include "math/Matrix4x4.h"
+#include "Shape3.h"
+
+#include <memory>
 
 class Actor {
 
@@ -18,6 +21,8 @@ public:
     virtual void render(cg::GLGraphics3& g3) {}
 
 protected:
+
+    std::unique_ptr<Shape3> shape;
 
     cg::mat4f transform;
 

@@ -2,23 +2,22 @@
 
 #include "Actor.h"
 #include "graphics/Application.h" 
+#include "SphereShape.h"
 
 class CentralSphere : public Actor {
 
 public:
 
-    float speed = 50.0f;
     cg::Color color = cg::Color::green;
 
     void start() override {
-        position.set({0, 1, 0});    
-    }
 
-    void update(float deltaTime) override {
-        cg::quatf rotacaoNesteFrame = cg::quatf(speed * deltaTime, {0, 1, 0});
-        rotation = rotacaoNesteFrame * rotation;
+        shape = std::make_unique<SphereShape>();
 
+        position.set({0, 1, 0});
+        
         updateTransform();
+        
     }
 
     void render(cg::GLGraphics3& g3) override {
