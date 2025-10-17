@@ -6,8 +6,8 @@ Raycaster::Raycaster(int width, int height) : imageBuffer(width, height) {
     image = std::make_unique<cg::GLImage>(width, height);
 
     camera.setAspectRatio((float)width / height);
-    camera.setViewAngle(30.0f);
-    camera.setPosition({ 0, 5, 30 });
+    camera.setViewAngle(60.0f);
+    camera.setPosition({ 10, 2, 12 });
     camera.setDirectionOfProjection(-camera.position());
     camera.update();
 

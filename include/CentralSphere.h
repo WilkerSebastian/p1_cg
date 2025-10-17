@@ -14,7 +14,7 @@ public:
 
         shape = std::make_unique<SphereShape>();
 
-        position.set(-7.5f, 0, 3);
+        position.set(0, 0, 0);
 
         material.diffuse = cg::Color::red;
         material.specular = cg::Color::white;
@@ -46,8 +46,11 @@ public:
         auto hit = shape->intersect(ray, transform);
 
         if (hit.distance > 0) {
+
             hit.actor = this; 
+
             return hit;       
+
         }
 
         return {};

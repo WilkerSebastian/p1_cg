@@ -32,6 +32,7 @@
 
 #include "MainWindow.h"
 #include "CentralSphere.h"
+#include "Ground.h"
 
 /////////////////////////////////////////////////////////////////////
 //
@@ -55,10 +56,11 @@ MainWindow::initialize()
   glPolygonOffset(1.0f, 1.0f);
 
   sceneManager.createScene("main",
-    new CentralSphere()
+    new CentralSphere(),
+    new Ground()
   );
 
-  sceneManager.addLight("main", { 5, 5, 5}, cg::Color::red);
+  sceneManager.addLight("main", { 6, -4, 1}, cg::Color::red);
 
   sceneManager.setActiveScene("main");
 
