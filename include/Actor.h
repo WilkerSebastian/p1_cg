@@ -24,8 +24,21 @@ public:
 
     cg::Material material{cg::Color::white};
 
-    virtual Intersection intersect(cg::Ray3f& ray) {
+    Intersection intersect(cg::Ray3f& ray) {
         
+        if (!shape)
+            return {}; 
+
+        auto hit = shape->intersect(ray, transform);
+
+        if (hit.distance > 0) {
+
+            hit.actor = this; 
+
+            return hit;       
+
+        }
+
         return {};
 
     }

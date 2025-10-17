@@ -32,6 +32,7 @@
 
 #include "MainWindow.h"
 #include "CentralSphere.h"
+#include "GoldSphere.h"
 #include "Ground.h"
 
 /////////////////////////////////////////////////////////////////////
@@ -57,10 +58,12 @@ MainWindow::initialize()
 
   sceneManager.createScene("main",
     new CentralSphere(),
-    new Ground()
+    new Ground(),
+    new GoldSphere()
   );
 
   sceneManager.addLight("main", { 6, -4, 1}, cg::Color::red);
+  sceneManager.addLight("main", { 10, 25, 10}, cg::Color::magenta * 0.7f);
 
   sceneManager.setActiveScene("main");
 

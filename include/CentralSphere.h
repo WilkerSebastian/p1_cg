@@ -38,23 +38,4 @@ public:
 
     }
 
-    Intersection intersect(cg::Ray3f& ray) override {
-        
-        if (!shape)
-            return {}; 
-
-        auto hit = shape->intersect(ray, transform);
-
-        if (hit.distance > 0) {
-
-            hit.actor = this; 
-
-            return hit;       
-
-        }
-
-        return {};
-
-    }
-
 };
