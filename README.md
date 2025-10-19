@@ -74,7 +74,6 @@ Descompacte o arquivo .zip em um local de sua escolha.
     ```
 2.  Entre no diretório de compilação:
     ```bash
-    mkdir build
     cd build
     ```
 3.  Execute o CMake:
