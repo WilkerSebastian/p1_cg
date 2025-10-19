@@ -4,10 +4,31 @@ project(p1_cg CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(WIN32)
+
+  set(PLATFORM_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/windows)
+
+  set(GLFW_INCLUDE_DIRS ${GLFW_INCLUDE_DIR})
+  
+  set(GLFW_LIBRARIES ${GLFW_LIBRARY} gdi32) 
+
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
+
+else()
+
+  set(PLATFORM_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/linux)
+
+  find_package(glfw3 REQUIRED)
+
+  set(GLFW_LIBRARIES glfw)
+
+endif()
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/Ds/include 
-  ${CMAKE_CURRENT_SOURCE_DIR}/Ds/externals/include    
+  ${CMAKE_CURRENT_SOURCE_DIR}/Ds/externals/include 
+  ${GLFW_INCLUDE_DIRS}   
 )
 
 add_executable(p1_cg
@@ -17,12 +38,11 @@ add_executable(p1_cg
 )
 
 find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
 
 target_link_libraries(p1_cg PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/libcg.a
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/libgl3w.a
-  glfw
+  ${PLATFORM_LIB_DIR}/libcg.a
+  ${PLATFORM_LIB_DIR}/libgl3w.a
+  ${GLFW_LIBRARIES}
   OpenGL::GL
 )
 
